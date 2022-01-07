@@ -29,7 +29,7 @@ export const getUserInfo = async (id: number): Promise<IDataType<any>> => {
 // 查询角色菜单树
 export const getUserRoleMenu = async (id: number): Promise<IDataType<any>> => {
   return wxRequest.get({
-    url: loginApi.roleMenu + id + 'menu',
+    url: loginApi.roleMenu + id + '/menu',
     showLoading: false
   })
 }
