@@ -7,6 +7,7 @@ import router from '@/router'
 import store from '@/store'
 import { setupStore } from '@/store'
 setupStore()
+
 // 全局注册
 import { globalRegister } from '@/global'
 

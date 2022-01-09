@@ -2,6 +2,9 @@ import { Module } from 'vuex'
 import IloginState from './type'
 import IRootState from '@/store/type'
 import IAccount from '@/service/login/type'
+
+import mapMenusToRoutes from '@/utils/map-menus'
+
 import {
   accountLoginRequest,
   getUserInfo,
@@ -31,9 +34,13 @@ const loginModule: Module<IloginState, IRootState> = {
       cache.setCache('userInfo', payload)
     },
 
-    changeUserRoleMenu(state, payload: any) {
+    async changeUserRoleMenu(state, payload: any) {
       state.userRoleMenu = payload
       cache.setCache('userRoleMenu', payload)
+      const routes = await mapMenusToRoutes(payload)
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
     }
   },
   actions: {

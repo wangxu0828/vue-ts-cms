@@ -1,27 +1,17 @@
 <template>
   <div class="user">
-    <hy-form v-bind="searchFormConfig" />
-    <div class="content"></div>
+    <div class="content">
+      <div class="search">
+        <wx-form v-bind="IForm"></wx-form>
+      </div>
+      <div class="user-info-table"></div>
+    </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import HyForm from '@/base-ui/form'
-
-import { searchFormConfig } from './config/search.config'
-
-export default defineComponent({
-  name: 'user',
-  components: {
-    HyForm
-  },
-  setup() {
-    return {
-      searchFormConfig
-    }
-  }
-})
+<script lang="ts" setup>
+import WxForm from '@/base-ui/form/index'
+import IForm from './config/search.config'
 </script>
 
-<style scoped></style>
+<style lang="less" scoped></style>

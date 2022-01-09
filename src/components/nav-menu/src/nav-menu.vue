@@ -11,6 +11,7 @@
       :unique-opened="true"
       class="el-menu-vertical"
       :collapse="isCollapse"
+      router
     >
       <template v-for="submenu in userRoleMenu" :key="submenu.id">
         <template v-if="submenu.type === 1">
@@ -20,7 +21,7 @@
               <span>{{ submenu.name }}</span>
             </template>
             <div v-for="submenuitem in submenu.children" :key="submenuitem.id">
-              <el-menu-item :index="submenuitem.id + ''">
+              <el-menu-item :index="submenuitem.url">
                 <template #title>
                   <el-icon><location /></el-icon>
                   <span>{{ submenuitem.name }}</span>
@@ -30,7 +31,7 @@
           </el-sub-menu>
         </template>
         <template v-else-if="submenu.type === 2">
-          <el-menu-item></el-menu-item>
+          <el-menu-item :index="submenu.url"></el-menu-item>
         </template>
       </template>
     </el-menu>
