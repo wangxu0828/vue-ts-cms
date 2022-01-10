@@ -1,16 +1,15 @@
+import type { IBreadcrumb } from '@/base-ui/breadcrumb/types/type'
 import { RouteRecordRaw } from 'vue-router'
 
-const mapMenusToRoutes = async (
-  userMenus: any[]
-): Promise<RouteRecordRaw[]> => {
+const mapMenusToRoutes = (userMenus: any[]): RouteRecordRaw[] => {
   const routes: RouteRecordRaw[] = []
 
   // 先去加载所有的routes
   const allRoutes: RouteRecordRaw[] = []
 
   const routeFile = require.context('@/router/main', true, /\.ts$/)
-  await routeFile.keys().forEach(async (item) => {
-    const res = await require('@/router/main' + item.split('.')[1])
+  routeFile.keys().forEach((item) => {
+    const res = require('@/router/main' + item.split('.')[1])
     allRoutes.push(res.default)
   })
 
@@ -31,6 +30,34 @@ const mapMenusToRoutes = async (
   // 根据菜单获取需要加载的routes
 
   return routes
+}
+
+export const pathMapToMenu = (
+  userRoleMenu: any[],
+  currentPath: string,
+  breadcrumbList?: IBreadcrumb[]
+): any => {
+  for (const menu of userRoleMenu) {
+    if (menu.type === 1) {
+      const currentMenu = pathMapToMenu(menu.children ?? [], currentPath)
+      if (currentMenu) {
+        breadcrumbList?.push({ name: menu.name })
+        breadcrumbList?.push({ name: currentMenu.name })
+        return currentMenu
+      }
+    } else if (menu.type === 2 && menu.url === currentPath) {
+      return menu
+    }
+  }
+}
+
+export const pathMapToBreadcrumb = (
+  userRoleMenu: any[],
+  currentPath: string
+): IBreadcrumb[] => {
+  const breadcrumbList: IBreadcrumb[] = []
+  pathMapToMenu(userRoleMenu, currentPath, breadcrumbList)
+  return breadcrumbList
 }
 
 export default mapMenusToRoutes

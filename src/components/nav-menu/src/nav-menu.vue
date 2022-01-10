@@ -5,13 +5,13 @@
       <span v-if="!isCollapse" class="title">vue3+ts</span>
     </div>
     <el-menu
+      :default-active="defaultId"
       background-color="#0c2135"
       text-color="#b7bdc3"
       active-text-color="#0a60bd"
       :unique-opened="true"
       class="el-menu-vertical"
       :collapse="isCollapse"
-      router
     >
       <template v-for="submenu in userRoleMenu" :key="submenu.id">
         <template v-if="submenu.type === 1">
@@ -21,7 +21,10 @@
               <span>{{ submenu.name }}</span>
             </template>
             <div v-for="submenuitem in submenu.children" :key="submenuitem.id">
-              <el-menu-item :index="submenuitem.url">
+              <el-menu-item
+                :index="submenuitem.id + ''"
+                @click="handleNavigator(submenuitem.url)"
+              >
                 <template #title>
                   <el-icon><location /></el-icon>
                   <span>{{ submenuitem.name }}</span>
@@ -31,7 +34,10 @@
           </el-sub-menu>
         </template>
         <template v-else-if="submenu.type === 2">
-          <el-menu-item :index="submenu.url"></el-menu-item>
+          <el-menu-item
+            :index="submenu.id + ''"
+            @click="handleNavigator(submenu.url)"
+          ></el-menu-item>
         </template>
       </template>
     </el-menu>
@@ -42,6 +48,10 @@
 import { computed, defineProps, watch, ref } from 'vue'
 import { useStore } from '@/store'
 import { Location } from '@element-plus/icons-vue'
+import { useRoute, useRouter } from 'vue-router'
+import { pathMapToMenu } from '@/utils/map-menus'
+const route = useRoute()
+const router = useRouter()
 
 Location
 const store = useStore()
@@ -55,8 +65,15 @@ const props = defineProps({
 watch(props, (value) => {
   isCollapse.value = value.collapse
 })
-
+const currentPath = route.path
 const userRoleMenu = computed(() => store.state.login.userRoleMenu)
+const menu = pathMapToMenu(userRoleMenu.value, currentPath)
+
+const defaultId = ref(menu.id + '')
+
+const handleNavigator = (url: any) => {
+  router.push(url)
+}
 </script>
 
 <style lang="less" scoped>

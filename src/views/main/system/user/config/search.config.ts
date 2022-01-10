@@ -1,21 +1,24 @@
 import type { IForm } from '@/base-ui/form/types/type'
 
-const IForm: IForm = {
+const Form: IForm = {
   formConfig: [
     {
+      field: 'id',
       type: 'input',
       label: '账号',
       placeholder: '请输入姓名'
     },
     {
+      field: 'password',
       type: 'password',
       label: '密码',
       placeholder: '请输入姓名'
     },
     {
+      field: 'sport',
       type: 'select',
-      label: '游戏',
-      placeholder: '请输入姓名',
+      label: '喜欢的运动',
+      placeholder: '请选择喜欢的运动',
       options: [
         {
           label: '吃鸡',
@@ -28,6 +31,7 @@ const IForm: IForm = {
       ]
     },
     {
+      field: 'createTime',
       type: 'datepicker',
       label: '日期',
       placeholder: '请输入姓名',
@@ -43,4 +47,4 @@ const IForm: IForm = {
   colLayout: { span: 8 }
 }
 
-export default IForm
+export default Form

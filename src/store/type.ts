@@ -1,3 +1,4 @@
+import { ISystemType } from './module/main/system/type'
 import ILoginState from './module/login/type'
 
 export default interface IRootState {
@@ -7,6 +8,7 @@ export default interface IRootState {
 
 export interface IMuduleType {
   login: ILoginState
+  system: ISystemType
 }
 
 export type IStoreType = IRootState & IMuduleType

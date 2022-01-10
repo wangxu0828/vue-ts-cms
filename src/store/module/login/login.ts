@@ -34,13 +34,9 @@ const loginModule: Module<IloginState, IRootState> = {
       cache.setCache('userInfo', payload)
     },
 
-    async changeUserRoleMenu(state, payload: any) {
+    changeUserRoleMenu(state, payload: any) {
       state.userRoleMenu = payload
       cache.setCache('userRoleMenu', payload)
-      const routes = await mapMenusToRoutes(payload)
-      routes.forEach((route) => {
-        router.addRoute('main', route)
-      })
     }
   },
   actions: {
@@ -73,6 +69,10 @@ const loginModule: Module<IloginState, IRootState> = {
       if (userRoleMenu) {
         commit('changeUserRoleMenu', userRoleMenu)
       }
+      const routes = mapMenusToRoutes(userRoleMenu)
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
     }
   },
   getters: {}
