@@ -1,5 +1,6 @@
 import type { App } from 'vue'
+import registerPlugin from './register-properties'
 
 export function globalRegister(app: App): void {
-  console.log(app)
+  app.use(registerPlugin)
 }

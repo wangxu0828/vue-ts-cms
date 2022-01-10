@@ -10,6 +10,12 @@
             <el-switch :model-value="isTrue(value)"></el-switch>
             <!-- <el-switch v-model="isTrue(value)"></el-switch> -->
           </template>
+          <template v-slot:createAt="{ value }">
+            {{ $fliter.formatUTCTime(value) }}
+          </template>
+          <template v-slot:updateAt="{ value }">
+            {{ $fliter.formatUTCTime(value) }}
+          </template>
         </wx-table>
       </div>
     </div>
@@ -18,7 +24,7 @@
 
 <script lang="ts" setup>
 import Form from './config/search.config'
-import PageSearch from '@/base-ui/page-search/src/page-search.vue'
+import PageSearch from '@/base-ui/page-search'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 import WxTable from '@/base-ui/table'
@@ -36,9 +42,9 @@ const userList = computed(() => {
   return store.state.system.userList
 })
 
-const userListCount = computed(() => {
-  return store.state.system.userListCount
-})
+// const userListCount = computed(() => {
+//   return store.state.system.userListCount
+// })
 const tableConfigList = [
   {
     prop: 'name',

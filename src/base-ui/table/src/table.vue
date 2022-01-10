@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps, PropType } from 'vue'
 
 const props = defineProps({
   userList: {
@@ -24,7 +24,7 @@ const props = defineProps({
     required: true
   },
   tableConfigList: {
-    type: Array,
+    type: Array as PropType<any[]>,
     required: true
   }
 })
