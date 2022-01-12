@@ -1,18 +1,28 @@
 <template>
-  <div class="role">
-    <h2>role</h2>
+  <div class="role-container">
+    <page-search
+      :Form="Form"
+      @handleResetClick="handleResetClick"
+      @handleQueryClick="handleQueryClick"
+    ></page-search>
+    <page-content
+      :contentConfig="contentConfig"
+      :pageName="pageName"
+      ref="pageContentRef"
+    ></page-content>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import {} from 'vue'
+import contentConfig from './config/content.config'
+import Form from './config/search.config'
+import PageContent from '@/components/page-content'
+import PageSearch from '@/base-ui/page-search'
+import { userPageSearch } from '@/hooks/userPageSearch'
 
-export default defineComponent({
-  name: 'role',
-  setup() {
-    return {}
-  }
-})
+const [pageContentRef, handleResetClick, handleQueryClick] = userPageSearch()
+const pageName = 'role'
 </script>
 
-<style scoped></style>
+<style lang="less" scoped></style>

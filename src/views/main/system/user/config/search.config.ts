@@ -3,35 +3,41 @@ import type { IForm } from '@/base-ui/form/types/type'
 const Form: IForm = {
   formConfig: [
     {
-      field: 'id',
+      field: 'name',
       type: 'input',
-      label: '账号',
+      label: '姓名',
       placeholder: '请输入姓名'
     },
     {
-      field: 'password',
-      type: 'password',
-      label: '密码',
+      field: 'realname',
+      type: 'input',
+      label: '真实姓名',
       placeholder: '请输入姓名'
     },
     {
-      field: 'sport',
+      field: 'cellphone',
+      type: 'input',
+      label: '手机号码',
+      placeholder: '请输入手机号码'
+    },
+    {
+      field: 'enable',
       type: 'select',
-      label: '喜欢的运动',
-      placeholder: '请选择喜欢的运动',
+      label: '用户状态',
+      placeholder: '请选择用户状态',
       options: [
         {
-          label: '吃鸡',
-          value: '吃鸡'
+          label: '启用',
+          value: '1'
         },
         {
-          label: 'lol',
-          value: 'lol'
+          label: '禁用',
+          value: '0'
         }
       ]
     },
     {
-      field: 'createTime',
+      field: 'createAt',
       type: 'datepicker',
       label: '日期',
       placeholder: '请输入姓名',

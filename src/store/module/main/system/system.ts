@@ -8,7 +8,9 @@ const mainSystemModule: Module<ISystemType, IRootState> = {
   state: () => {
     return {
       userList: [],
-      userListCount: 0
+      userListCount: 0,
+      roleList: [],
+      roleListCount: 0
     }
   },
   mutations: {
@@ -18,17 +20,53 @@ const mainSystemModule: Module<ISystemType, IRootState> = {
 
     changeUserListCount(state, userListCount: number) {
       state.userListCount = userListCount
+    },
+
+    changeRoleList(state, roleList: any) {
+      state.roleList = roleList
+    },
+
+    changeRoleListCount(state, roleListCount: number) {
+      state.roleListCount = roleListCount
     }
   },
   actions: {
     async getPageInfoList({ commit }, payload: any) {
-      console.log(payload.pageUrl)
-      console.log(payload.pageInfo)
-      const res = await getPageListDate(payload.pageUrl, payload.pageInfo)
+      const pageName = payload.pageName
+      let pageUrl = ''
+      switch (pageName) {
+        case 'user':
+          pageUrl = '/users/list'
+          break
+        case 'role':
+          pageUrl = '/role/list'
+          break
+      }
+      const res = await getPageListDate(pageUrl, payload.pageInfo)
       const { list, totalCount } = res.data
 
-      commit('changeUserList', list)
-      commit('changeUserListCount', totalCount)
+      switch (pageName) {
+        case 'user':
+          commit('changeUserList', list)
+          commit('changeUserListCount', totalCount)
+          break
+        case 'role':
+          commit('changeRoleList', list)
+          commit('changeRoleListCount', totalCount)
+          break
+      }
+    }
+  },
+  getters: {
+    pageData(state) {
+      return (value: string) => {
+        return (state as any)[`${value}List`]
+      }
+    },
+    pageDataCount(state) {
+      return (value: string) => {
+        return (state as any)[`${value}ListCount`]
+      }
     }
   }
 }

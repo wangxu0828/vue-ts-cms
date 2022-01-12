@@ -13,13 +13,15 @@
                   :type="item.type"
                   :placeholder="item.placeholder"
                   :show-password="item.type === 'password'"
-                  v-model="FormDate[`${item.field}`]"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handleChangeFormValue($event, item.field)"
                 ></el-input>
               </template>
               <template v-else-if="item.type === 'select'">
                 <el-select
                   :placeholder="item.placeholder"
-                  v-model="FormDate[`${item.field}`]"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handleChangeFormValue($event, item.field)"
                 >
                   <template v-for="option in item.options" :key="option.value">
                     <el-option :value="option.value">{{
@@ -31,7 +33,8 @@
               <template v-else>
                 <el-date-picker
                   v-bind="item.otherOptions"
-                  v-model="FormDate[`${item.field}`]"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handleChangeFormValue($event, item.field)"
                 ></el-date-picker>
               </template>
             </el-form-item>
@@ -44,7 +47,8 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, PropType, ref, defineEmits, watch } from 'vue'
+// import { defineProps, PropType, ref, defineEmits, watch } from 'vue'
+import { defineProps, PropType, defineEmits } from 'vue'
 import type { IFormItem } from '../types/type'
 
 const emit = defineEmits(['update:modelValue'])
@@ -78,20 +82,33 @@ const props = defineProps({
     required: true
   }
 })
+const handleChangeFormValue = (value: any, field: any) => {
+  emit('update:modelValue', { ...props.modelValue, [field]: value })
+}
+// const FormDate = ref({ ...props.modelValue })
 
-const FormDate = ref({ ...props.modelValue })
+// watch(
+//   () => props.modelValue,
+//   (newValue) => {
+//     console.log(newValue)
+//     FormDate.value = newValue
+//   },
+//   {
+//     deep: true
+//   }
+// )
 
-watch(
-  FormDate,
-  (newValue) => {
-    console.log(newValue)
+// watch(
+//   FormDate,
+//   (newValue) => {
+//     console.log(newValue)
 
-    emit('update:modelValue', newValue)
-  },
-  {
-    deep: true
-  }
-)
+//     emit('update:modelValue', newValue)
+//   },
+//   {
+//     deep: true
+//   }
+// )
 </script>
 
 <style lang="less" scoped></style>
