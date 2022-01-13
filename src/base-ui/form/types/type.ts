@@ -13,8 +13,8 @@ export interface IFormItem {
 }
 
 export interface IForm {
-  formConfig: IFormItem[]
-  labelWidth: string
-  itemLayout: any
-  colLayout: any
+  formConfig?: IFormItem[]
+  labelWidth?: string
+  itemLayout?: any
+  colLayout?: any
 }

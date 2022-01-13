@@ -1,18 +1,29 @@
 <template>
-  <div class="goods">
-    <h2>goods</h2>
+  <div class="goods-container">
+    <page-content :contentConfig="contentConfig" :pageName="pageName">
+      <template v-slot:image="{ value }">
+        <el-image
+          :src="value.imgUrl"
+          style="width: 60px; height: 60px"
+          :preview-src-list="[value.imgUrl]"
+        >
+        </el-image>
+      </template>
+      <template v-slot:oldPrice="{ value }"> ${{ value.oldPrice }} </template>
+      <template v-slot:status="{ value }">
+        <!-- 大叔大婶{{ value }} -->
+        {{ value.status === 1 ? '可以' : '不可以' }}
+      </template>
+    </page-content>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import {} from 'vue'
+import PageContent from '@/components/page-content'
+import contentConfig from './config/content.config'
 
-export default defineComponent({
-  name: 'goods',
-  setup() {
-    return {}
-  }
-})
+const pageName = 'goods'
 </script>
 
-<style scoped></style>
+<style lang="less" scoped></style>

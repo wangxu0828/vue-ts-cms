@@ -5,6 +5,7 @@ import IAccount from '@/service/login/type'
 
 import mapMenusToRoutes from '@/utils/map-menus'
 
+import { menuMapToPermission } from '@/utils/map-menus'
 import {
   accountLoginRequest,
   getUserInfo,
@@ -20,7 +21,8 @@ const loginModule: Module<IloginState, IRootState> = {
     return {
       token: '',
       userInfo: {},
-      userRoleMenu: {}
+      userRoleMenu: {},
+      permissionList: []
     }
   },
   mutations: {
@@ -37,6 +39,8 @@ const loginModule: Module<IloginState, IRootState> = {
     changeUserRoleMenu(state, payload: any) {
       state.userRoleMenu = payload
       cache.setCache('userRoleMenu', payload)
+      const permissonList = menuMapToPermission(payload)
+      state.permissionList = permissonList
     }
   },
   actions: {

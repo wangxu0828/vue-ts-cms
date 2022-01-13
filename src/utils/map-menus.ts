@@ -13,7 +13,7 @@ const mapMenusToRoutes = (userMenus: any[]): RouteRecordRaw[] => {
     allRoutes.push(res.default)
   })
 
-  const _recuresGetRoute = (userMenus: any) => {
+  const _recuresGetRoute = (userMenus: any[]) => {
     for (const menu of userMenus) {
       if (menu.type === 2) {
         const route = allRoutes.find((routeItem) => routeItem.path === menu.url)
@@ -58,6 +58,24 @@ export const pathMapToBreadcrumb = (
   const breadcrumbList: IBreadcrumb[] = []
   pathMapToMenu(userRoleMenu, currentPath, breadcrumbList)
   return breadcrumbList
+}
+
+export const menuMapToPermission = (userMenus: any[]) => {
+  const permissionList: string[] = []
+
+  const _getPermission = (menus: any) => {
+    for (const menu of menus) {
+      if (menu.type === 1 || menu.type === 2) {
+        _getPermission(menu.children ?? [])
+      } else {
+        permissionList.push(menu.permission)
+      }
+    }
+  }
+
+  _getPermission(userMenus)
+
+  return permissionList
 }
 
 export default mapMenusToRoutes

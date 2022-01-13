@@ -10,3 +10,11 @@ export const getPageListDate = async (
     data: queryInfo
   })
 }
+
+export const deletePageDataById = async (
+  url: string
+): Promise<IDataType<any>> => {
+  return await wxRequest.delete({
+    url
+  })
+}

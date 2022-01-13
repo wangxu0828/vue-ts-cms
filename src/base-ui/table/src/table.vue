@@ -12,8 +12,9 @@
     border
     style="width: 100%"
     @selection-change="selectionChange"
+    v-bind="treeShow"
   >
-    <el-table-column type="selection"> </el-table-column>
+    <el-table-column type="selection" v-if="showSelection"> </el-table-column>
     <el-table-column
       v-if="showIndex"
       type="index"
@@ -23,19 +24,16 @@
     >
     </el-table-column>
     <template v-for="tableItem in props.tableConfigList" :key="tableItem.name">
-      <el-table-column v-bind="tableItem" align="center">
+      <el-table-column show-overflow-tooltip v-bind="tableItem" align="center">
         <template v-slot:default="scoped">
-          <slot
-            :name="tableItem.slotName"
-            :value="scoped.row[tableItem['prop']]"
-          >
+          <slot :name="tableItem.slotName" :value="scoped.row">
             {{ scoped.row[tableItem['prop']] }}
           </slot>
         </template>
       </el-table-column>
     </template>
   </el-table>
-  <div class="footer">
+  <div class="footer" v-if="props.showPagination">
     <slot name="footer">
       <el-pagination
         :v-model:currentPage="props.page.currentPage"
@@ -81,19 +79,27 @@ const props = defineProps({
   },
   dataCount: {
     type: Number,
-    required: true
+    default: 0
+  },
+  showPagination: {
+    type: Boolean,
+    default: true
+  },
+  treeShow: {
+    type: Object,
+    default: () => ({})
   }
 })
 const emit = defineEmits(['selectionChange', 'update:page'])
-const selectionChange = (value) => {
+const selectionChange = (value: any) => {
   emit('selectionChange', value)
 }
 
-const handleSizeChange = (value) => {
+const handleSizeChange = (value: any) => {
   emit('update:page', { ...props.page, pageSize: value })
 }
 
-const handleCurrentChange = (value) => {
+const handleCurrentChange = (value: any) => {
   emit('update:page', { ...props.page, currentPage: value })
 }
 </script>
