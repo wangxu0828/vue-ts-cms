@@ -4,6 +4,7 @@ export interface IFormItem {
   field?: string
   type?: IFormType
   label?: string
+  isHidden?: boolean
   rules?: any[]
   placeholder?: any
   // 针对select

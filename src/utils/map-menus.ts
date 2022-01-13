@@ -13,7 +13,7 @@ const mapMenusToRoutes = (userMenus: any[]): RouteRecordRaw[] => {
     allRoutes.push(res.default)
   })
 
-  const _recuresGetRoute = (userMenus: any[]) => {
+  const _recuresGetRoute = (userMenus: any) => {
     for (const menu of userMenus) {
       if (menu.type === 2) {
         const route = allRoutes.find((routeItem) => routeItem.path === menu.url)
@@ -27,6 +27,7 @@ const mapMenusToRoutes = (userMenus: any[]): RouteRecordRaw[] => {
   }
 
   _recuresGetRoute(userMenus)
+
   // 根据菜单获取需要加载的routes
 
   return routes

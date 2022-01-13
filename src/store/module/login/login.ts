@@ -2,7 +2,7 @@ import { Module } from 'vuex'
 import IloginState from './type'
 import IRootState from '@/store/type'
 import IAccount from '@/service/login/type'
-
+import store from '../../index'
 import mapMenusToRoutes from '@/utils/map-menus'
 
 import { menuMapToPermission } from '@/utils/map-menus'
@@ -39,6 +39,12 @@ const loginModule: Module<IloginState, IRootState> = {
     changeUserRoleMenu(state, payload: any) {
       state.userRoleMenu = payload
       cache.setCache('userRoleMenu', payload)
+
+      const routes = mapMenusToRoutes(payload)
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
+
       const permissonList = menuMapToPermission(payload)
       state.permissionList = permissonList
     }
@@ -55,6 +61,8 @@ const loginModule: Module<IloginState, IRootState> = {
       const userRoleMenu = await getUserRoleMenu(id)
       commit('changeUserRoleMenu', userRoleMenu.data)
 
+      await store.dispatch('getEntireDepartmenList')
+      await store.dispatch('getEntireRoleList')
       router.push('/main')
     },
 
@@ -73,10 +81,6 @@ const loginModule: Module<IloginState, IRootState> = {
       if (userRoleMenu) {
         commit('changeUserRoleMenu', userRoleMenu)
       }
-      const routes = mapMenusToRoutes(userRoleMenu)
-      routes.forEach((route) => {
-        router.addRoute('main', route)
-      })
     }
   },
   getters: {}

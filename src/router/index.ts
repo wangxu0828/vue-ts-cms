@@ -3,7 +3,6 @@ import type { RouteRecordRaw } from 'vue-router'
 import cache from '@/utils/cache'
 import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
-import { setupStore } from '@/store'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -34,7 +33,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to) => {
-  setupStore()
+  // setupStore()
 
   if (to.path !== '/login') {
     const token = cache.getCache('token')

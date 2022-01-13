@@ -19,8 +19,8 @@ import { ElForm } from 'element-plus'
 import cache from '@/utils/cache'
 const store = useStore()
 const account = ref({
-  name: cache.getCache('name') ?? '',
-  password: cache.getCache('password') ?? ''
+  name: cache.getCache('name') ?? 'coderwhy',
+  password: cache.getCache('password') ?? '123456'
 })
 
 import { rules } from '../config/login-config'

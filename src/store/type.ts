@@ -4,6 +4,8 @@ import ILoginState from './module/login/type'
 export default interface IRootState {
   name: string
   password: string
+  departmentList: any[]
+  roleList: any[]
 }
 
 export interface IMuduleType {
