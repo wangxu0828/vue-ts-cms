@@ -18,3 +18,26 @@ export const deletePageDataById = async (
     url
   })
 }
+
+export const updatePageData = async (
+  url: string,
+  newInfo: any
+): Promise<IDataType<any>> => {
+  console.log(url, newInfo)
+
+  return await wxRequest.post({
+    url,
+    data: newInfo
+  })
+}
+
+export const editPageData = async (
+  url: string,
+  editInfo: any
+): Promise<IDataType<any>> => {
+  console.log(url, editInfo)
+  return await wxRequest.patch({
+    url,
+    data: editInfo
+  })
+}

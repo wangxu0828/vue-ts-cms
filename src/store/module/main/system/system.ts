@@ -3,7 +3,9 @@ import { Module } from 'vuex'
 import { ISystemType } from './type'
 import {
   deletePageDataById,
-  getPageListDate
+  editPageData,
+  getPageListDate,
+  updatePageData
 } from '@/service/main/system/system'
 import { ElMessage } from 'element-plus'
 
@@ -108,6 +110,35 @@ const mainSystemModule: Module<ISystemType, IRootState> = {
 
       await dispatch('getPageInfoList', {
         pageName,
+        pageInfo: {
+          size: 5,
+          offset: 0
+        }
+      })
+    },
+
+    async editPageData({ dispatch }, payload: any) {
+      const id = payload.id
+      const url = `/${payload.pageName}/${id}`
+      console.log(url)
+      console.log(payload.editInfo)
+
+      await editPageData(url, payload.editInfo)
+      await dispatch('getPageInfoList', {
+        pageName: payload.pageName,
+        pageInfo: {
+          size: 5,
+          offset: 0
+        }
+      })
+    },
+    async updatePageData({ dispatch }, payload: any) {
+      const url = `/${payload.pageName}`
+      console.log(payload.newInfo)
+
+      await updatePageData(url, payload.newInfo)
+      await dispatch('getPageInfoList', {
+        pageName: payload.pageName,
         pageInfo: {
           size: 5,
           offset: 0

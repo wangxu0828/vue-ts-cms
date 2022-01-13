@@ -148,7 +148,7 @@ const hasSlotNameList = props.contentConfig.tableConfigList.filter(
 )
 
 // 删除操作
-const handleDeleteClick = ({ value }) => {
+const handleDeleteClick = ({ value }: any) => {
   ElMessageBox.confirm('确认要删除吗?', '温馨提示', {
     confirmButtonText: '确认',
     cancelButtonText: '取消',
@@ -173,7 +173,7 @@ const handleDeleteClick = ({ value }) => {
 const handleUpdateClick = () => {
   emits('handleUpdateClick')
 }
-const handleEditClick = (row) => {
+const handleEditClick = (row: any) => {
   emits('handleEditClick', row)
 }
 </script>

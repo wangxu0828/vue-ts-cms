@@ -17,6 +17,7 @@
         :modelConfig="modelConfigRef"
         :editEchoFormData="editEchoFormData"
         ref="pageModelRef"
+        :pageName="pageName"
       ></page-model>
     </div>
   </div>
@@ -38,33 +39,33 @@ const store = useStore()
 
 const [pageContentRef, handleResetClick, handleQueryClick] = userPageSearch()
 const editCb = () => {
-  const obj = modelConfig.formConfig.find((item) => item.field === 'password')
+  const obj = modelConfig.formConfig!.find((item) => item.field === 'password')
 
   obj!.isHidden = true
   // modelConfig.formConfig.find((item) => item.field === 'password')?.isHidden =
   //   true
 }
 const updateCb = () => {
-  const obj = modelConfig.formConfig.find((item) => item.field === 'password')
+  const obj = modelConfig.formConfig?.find((item) => item.field === 'password')
   obj!.isHidden = false
   // modelConfig.formConfig.find((item) => item.field === 'password')?.isHidden =
   //   false
 }
 
 const modelConfigRef = computed(() => {
-  const departmentItem = modelConfig.formConfig.find(
+  const departmentItem = modelConfig.formConfig?.find(
     (item) => item.field === 'departmentId'
   )
 
-  departmentItem!.options = store.state.departmentList.map((item) => {
+  departmentItem!.options = store.state.departmentList.map((item: any) => {
     return { label: item.name, value: item.id }
   })
 
-  const roleItem = modelConfig.formConfig.find(
+  const roleItem = modelConfig.formConfig?.find(
     (item) => item.field === 'roleId'
   )
 
-  roleItem!.options = store.state.roleList.map((item) => {
+  roleItem!.options = store.state.roleList.map((item: any) => {
     return { label: item.name, value: item.id }
   })
   return modelConfig
