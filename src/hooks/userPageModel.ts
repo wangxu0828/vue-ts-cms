@@ -1,9 +1,9 @@
 import PageModel from '@/components/page-model'
 import { ref } from 'vue'
 
-type cbFn = () => void
+type cbFn = (item?: any) => void
 
-export const userPageModel = (updateCb: cbFn, editCb: cbFn) => {
+export const userPageModel = (updateCb?: cbFn, editCb?: cbFn) => {
   const pageModelRef = ref<InstanceType<typeof PageModel>>()
   const editEchoFormData = ref({})
   const handleUpdateClick = () => {
@@ -14,7 +14,7 @@ export const userPageModel = (updateCb: cbFn, editCb: cbFn) => {
   const handleEditClick = (row: any) => {
     pageModelRef.value.dialogVisible = true
     editEchoFormData.value = { ...row.value }
-    editCb && editCb()
+    editCb && editCb(row)
   }
 
   return [pageModelRef, editEchoFormData, handleUpdateClick, handleEditClick]

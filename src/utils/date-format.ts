@@ -8,7 +8,7 @@ const UTCDataFormat = (
   UTCString: string,
   formatType: string = DATE_TIME_FORMAT
 ) => {
-  return dayjs.utc(UTCString).format(formatType)
+  return dayjs.utc(UTCString).utcOffset(8).format(formatType)
 }
 
 export default UTCDataFormat

@@ -38,8 +38,6 @@ router.beforeEach((to) => {
   if (to.path !== '/login') {
     const token = cache.getCache('token')
     if (!token) {
-      console.log(13213)
-
       ElMessage({
         type: 'warning',
         message: '请登录'

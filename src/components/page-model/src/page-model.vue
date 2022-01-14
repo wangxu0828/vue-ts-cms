@@ -8,6 +8,7 @@
       destroy-on-close
     >
       <wx-form v-bind="props.modelConfig" v-model="modelValue"></wx-form>
+      <slot></slot>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
@@ -37,6 +38,10 @@ const props = defineProps({
   pageName: {
     type: String,
     required: true
+  },
+  otherInfo: {
+    type: Object,
+    default: () => ({})
   }
 })
 
@@ -63,7 +68,7 @@ const handleEditOrUpdateConfirmClick = async () => {
     dialogVisible.value = false
     await store.dispatch('system/updatePageData', {
       pageName: props.pageName,
-      newInfo: { ...modelValue.value }
+      newInfo: { ...modelValue.value, ...props.otherInfo }
     })
   } else {
     // 修改
@@ -73,7 +78,7 @@ const handleEditOrUpdateConfirmClick = async () => {
     }
     await store.dispatch('system/editPageData', {
       pageName: props.pageName,
-      editInfo,
+      editInfo: { ...editInfo, ...props.otherInfo },
       id: props.editEchoFormData.id
     })
     dialogVisible.value = false

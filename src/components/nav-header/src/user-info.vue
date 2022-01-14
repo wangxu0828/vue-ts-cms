@@ -12,7 +12,9 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item :icon="Avatar">用户退出</el-dropdown-item>
+          <el-dropdown-item :icon="Avatar" @click="handleSignOut"
+            >用户退出</el-dropdown-item
+          >
           <el-dropdown-item divided :icon="CircleClose"
             >用户信息</el-dropdown-item
           >
@@ -32,6 +34,10 @@ import { useStore } from 'vuex'
 const store = useStore()
 
 const name = computed(() => store.state.login.userInfo.name)
+
+const handleSignOut = () => {
+  store.dispatch('login/handleSignOut')
+}
 </script>
 
 <style lang="less" scoped>

@@ -25,7 +25,7 @@
 
 <script lang="ts" setup>
 import { useStore } from 'vuex'
-import modelConfig from './config/model.congig'
+import modelConfig from './config/model.config'
 import Form from './config/search.config'
 import PageSearch from '@/base-ui/page-search'
 

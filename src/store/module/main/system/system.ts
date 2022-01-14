@@ -120,8 +120,6 @@ const mainSystemModule: Module<ISystemType, IRootState> = {
     async editPageData({ dispatch }, payload: any) {
       const id = payload.id
       const url = `/${payload.pageName}/${id}`
-      console.log(url)
-      console.log(payload.editInfo)
 
       await editPageData(url, payload.editInfo)
       await dispatch('getPageInfoList', {
@@ -134,7 +132,6 @@ const mainSystemModule: Module<ISystemType, IRootState> = {
     },
     async updatePageData({ dispatch }, payload: any) {
       const url = `/${payload.pageName}`
-      console.log(payload.newInfo)
 
       await updatePageData(url, payload.newInfo)
       await dispatch('getPageInfoList', {

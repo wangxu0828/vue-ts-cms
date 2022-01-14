@@ -2,7 +2,7 @@ import { Module } from 'vuex'
 import IloginState from './type'
 import IRootState from '@/store/type'
 import IAccount from '@/service/login/type'
-import store from '../../index'
+// import store from '../../index'
 import mapMenusToRoutes from '@/utils/map-menus'
 
 import { menuMapToPermission } from '@/utils/map-menus'
@@ -50,7 +50,7 @@ const loginModule: Module<IloginState, IRootState> = {
     }
   },
   actions: {
-    async accountLoginAction({ commit }, payload: IAccount) {
+    async accountLoginAction({ commit, dispatch }, payload: IAccount) {
       const loginRes = await accountLoginRequest(payload)
       const { id, token } = loginRes.data
       commit('changeToken', token)
@@ -61,8 +61,9 @@ const loginModule: Module<IloginState, IRootState> = {
       const userRoleMenu = await getUserRoleMenu(id)
       commit('changeUserRoleMenu', userRoleMenu.data)
 
-      await store.dispatch('getEntireDepartmenList')
-      await store.dispatch('getEntireRoleList')
+      await dispatch('getEntireDepartmenList', null, { root: true })
+      await dispatch('getEntireRoleList', null, { root: true })
+      await dispatch('getEntireMenuList', null, { root: true })
       router.push('/main')
     },
 
@@ -81,6 +82,11 @@ const loginModule: Module<IloginState, IRootState> = {
       if (userRoleMenu) {
         commit('changeUserRoleMenu', userRoleMenu)
       }
+    },
+
+    handleSignOut() {
+      cache.deleteAllCache()
+      router.push('/main')
     }
   },
   getters: {}

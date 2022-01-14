@@ -79,4 +79,22 @@ export const menuMapToPermission = (userMenus: any[]) => {
   return permissionList
 }
 
+export const menuListMapToleaf = (menuList: any[]) => {
+  const leaf: number[] = []
+
+  const _recureLeaf = (menuList: any[]) => {
+    for (const menu of menuList) {
+      if (menu.children) {
+        _recureLeaf(menu.children)
+      } else {
+        leaf.push(menu.id)
+      }
+    }
+  }
+
+  _recureLeaf(menuList)
+
+  return leaf
+}
+
 export default mapMenusToRoutes

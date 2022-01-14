@@ -12,15 +12,19 @@ const store = createStore<IRootState>({
       name: '',
       password: '',
       departmentList: [],
-      roleList: []
+      roleList: [],
+      menuList: []
     }
   },
   mutations: {
     changeDepartmentList(state, paylolad: any[]) {
       state.departmentList = paylolad
     },
-    changeroleList(state, paylolad: any[]) {
+    changeRoleList(state, paylolad: any[]) {
       state.roleList = paylolad
+    },
+    changeMenuList(state, paylolad: any[]) {
+      state.menuList = paylolad
     }
   },
   actions: {
@@ -38,7 +42,15 @@ const store = createStore<IRootState>({
         size: 1000
       })
       const { list } = roleListResult.data
-      commit('changeroleList', list)
+      commit('changeRoleList', list)
+    },
+    async getEntireMenuList({ commit }) {
+      const menuListResult = await getPageListDate('/menu/list', {
+        offset: 0,
+        size: 1000
+      })
+      const { list } = menuListResult.data
+      commit('changeMenuList', list)
     }
   },
   getters: {},
@@ -53,11 +65,13 @@ export const useStore = (): Store<IStoreType> => {
 }
 
 export default store
+
 export const setupStore = (): void => {
   store.dispatch('login/loginSetupStore')
 
   if (cache.getCache('token')) {
     store.dispatch('getEntireDepartmenList')
     store.dispatch('getEntireRoleList')
+    store.dispatch('getEntireMenuList')
   }
 }

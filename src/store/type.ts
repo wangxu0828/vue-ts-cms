@@ -6,6 +6,7 @@ export default interface IRootState {
   password: string
   departmentList: any[]
   roleList: any[]
+  menuList: any[]
 }
 
 export interface IMuduleType {
