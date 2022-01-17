@@ -5,6 +5,7 @@ import login from './module/login/login'
 import system from './module/main/system/system'
 import { getPageListDate } from '@/service/main/system/system'
 import cache from '@/utils/cache'
+import dashboard from './module/main/analysis/dashboard'
 
 const store = createStore<IRootState>({
   state: () => {
@@ -56,7 +57,8 @@ const store = createStore<IRootState>({
   getters: {},
   modules: {
     login,
-    system
+    system,
+    dashboard
   }
 })
 

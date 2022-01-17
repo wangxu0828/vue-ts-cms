@@ -21,6 +21,7 @@ import { Expand, Fold } from '@element-plus/icons-vue'
 import UserInfo from './user-info.vue'
 import Breadcrumb from '@/base-ui/breadcrumb'
 import { pathMapToBreadcrumb } from '@/utils/map-menus'
+// import useEcharts from '@/base-ui/echart/hooks/usechart'
 
 const emit = defineEmits(['handleChangeCollapse'])
 import { useStore } from 'vuex'
@@ -30,6 +31,8 @@ const isFold = ref(false)
 const handleChangeFold = () => {
   isFold.value = !isFold.value
   emit('handleChangeCollapse', isFold.value)
+  // const { resize } = useEcharts()
+  // resize()
 }
 const store = useStore()
 const route = useRoute()
